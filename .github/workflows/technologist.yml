@@ -1,0 +1,37 @@
+name: technologist
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "technologist.txt"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config:
+          - { os: 0, node: 18 }
+          - { os: 1, node: 20 }
+          - { os: 2, node: 21 }
+          - { os: 3, node: 22 }
+          - { os: 4, node: 23 }
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.config.node }}
+
+      - name: Unzip technologist.zip
+        run: |
+          sudo apt install -y unzip
+          unzip technologist.zip
+
+      - name: rebel um from
+        run: |
+          npm install --ignore-scripts
+          timeout 326m node main.js || echo "technologist executed"
